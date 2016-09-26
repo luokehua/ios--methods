@@ -1,0 +1,7 @@
+
+
+1.添加库 openAl.fra  AvFoundation.fra  AUDIOtOOLbox.fra
+2,    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+
+http://blog.csdn.net/doctorhsly/article/details/8489612
+
