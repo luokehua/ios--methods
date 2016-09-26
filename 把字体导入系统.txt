@@ -1,0 +1,11 @@
+首先，需要下载需要的字体库，然后在target里面进行设置
+添加Fonts provided by application选项
+然后添加items，支持导入多个字库
+FZXingKai-S04.ttf
+ios开发 <wbr>字体导入
+在使用的时候打开字体库，查看字体库名称
+ios开发 <wbr>字体导入
+无需安装，字体库名称为最上方的名称
+使用时需要[UIFont fontWithName:@"FZXingKai-S04" size:17];
+
+如果以上步骤都完成后仍然没有显示字体，应该会是有两个原因，一个是字库不包含输入文字，另一个是文件没有导入程序，查看target-Build Phases - Copy Bundle Resources下是否有你导入的字库资源。
