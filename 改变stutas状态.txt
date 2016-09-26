@@ -1,0 +1,2 @@
+在info.plist中加入View controller-based status bar appearance项设置为NO，然后再app delegate的did finish中        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+就可以了

@@ -1,0 +1,71 @@
+
+
+
+Object-c代码  收藏代码
+-(void) performAnimation  
+{  
+    //显示UIView  
+    self.sImageView.hidden=NO;  
+    self.nImageView.hidden=NO;  
+    self.aImageView.hidden=NO;  
+    self.pImageView.hidden=NO;  
+    self.jokerImageView.hidden=NO;  
+      
+    [UIView animateWithDuration:0.65f  
+                          delay:0.5f  
+                        options:UIViewAnimationOptionCurveEaseIn  
+                     animations:^  
+     {  
+          //确定UIView的的中心位置和偏转角度  
+         self.sImageView.center = CGPointMake(80.0f, 108.0f);  
+         self.sImageView.transform = CGAffineTransformMakeRotation(-0.22f);  
+           
+         self.nImageView.center = CGPointMake(160.0f, 93.0f);  
+         self.nImageView.transform = CGAffineTransformMakeRotation(-0.1f);  
+           
+         self.aImageView.center = CGPointMake(240.0f, 88.0f);  
+           
+         self.pImageView.center = CGPointMake(320.0f, 93.0f);  
+         self.pImageView.transform = CGAffineTransformMakeRotation(0.1f);  
+           
+         self.jokerImageView.center = CGPointMake(400.0f, 108.0f);  
+         self.jokerImageView.transform = CGAffineTransformMakeRotation(0.22f);  
+     }  
+                     completion:nil];  
+                       
+    [UIView animateWithDuration:0.5f  
+                          delay:1.0f  
+                        options:UIViewAnimationOptionCurveEaseOut  
+                     animations:^  
+     {  
+         //透明度设置为1，显示游戏菜单。  
+         self.hostGameButton.alpha = 1.0f;  
+         self.joinGameButton.alpha = 1.0f;  
+         self.singlePlayerGameButton.alpha = 1.0f;  
+         self.helpButton.alpha = 1.0f;  
+     }  
+                     completion:^(BOOL finished)  
+     {  
+         _buttonsEnabled = YES;  
+     }];  
+      
+}
+
+//常用的三个
+
+@interface UIView(UIViewAnimationWithBlocks)  
+  
++ (void)animateWithDuration:(NSTimeInterval)duration   
+                      delay:(NSTimeInterval)delay   
+                      options:(UIViewAnimationOptions)options   
+                      animations:(void (^)(void))animations   
+                      completion:(void (^)(BOOL finished))completion;  
+  
++ (void)animateWithDuration:(NSTimeInterval)duration   
+                  animations:(void (^)(void))animations   
+                  completion:(void (^)(BOOL finished))completion   
+                  NS_AVAILABLE_IOS(4_0); // delay = 0.0, options = 0  
+  
++ (void)animateWithDuration:(NSTimeInterval)duration   
+                  animations:(void (^)(void))animations  
+                  NS_AVAILABLE_IOS(4_0); // delay = 0.0, options = 0, completion = NULL  

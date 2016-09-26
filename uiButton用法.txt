@@ -1,0 +1,48 @@
+
+
+http://www.cnblogs.com/xingfuzzhd/p/3346995.html
+
+
+btn.frame = CGRectMake(x, y, width, height);
+
+[btn setTitle: @"search" forState: UIControlStateNormal];
+btn.titleLabel.font = [UIFont systemFontOfSize: 14.0];
+
+[btn seBackgroundColor: [UIColor blueColor]];
+btn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft ;//设置文字位置，现设为居左，默认的是居中
+btn.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);使文字距离做边框保持10个像素的距离。
+
+button1.adjustsImageWhenHighlighted = NO;     //取消按钮高亮状态（有些时候，我们并不想要系统给的那个状态）
+
+[cancelButton setShowsTouchWhenHighlighted:YES];
+
+
+原来代码如下：menuBtn.frame = CGRectMake(4, 8, 44, 28);
+扩大触摸区域代码如下：
+[menuBtn setImage:[PYUtiles imageFromFile:@"MenuBtn.png"] forState:UIControlStateNormal];
+[menuBtn setFrame:CGRectMake(0, 0, 48, 44)];
+[menuBtn setContentMode:UIViewContentModeCenter];
+原理，扩大button的frame rect，并且将图片设置成居中即可
+注意，这边要是setImage，setBackgroundImage不行，会扩大图片到整个响应区域
+
+
+设置UIButton 的字体阴影
+[[rightButton titleLabel] setShadowColor:[UIColor blackColor]];
+[[rightButton titleLabel] setShadowOffset:CGSizeMake(-0.5, -0.5)];
+
+
+UIButtonTypeCustom 和  UIButtonTypeRoundedRect  的区别
+
+ UIButtonTypeCustom ：是一个背景透明的按钮。  如果想做按钮中图片切换（不同状态），必须使用两张图片进行设置。
+
+UIButtonTypeRoundedRect ：是一个圆角矩形按钮。方便之处：系统会自动为这种按钮设置高亮状态（半透明状态）。即，通过一张图片，就可以做出按钮交互的效果。 不方便的地方：如果你想自定义不同状态下，按钮显示的背景，这种类型的按钮就支持的不好。
+
+建议：快速开发，每个按钮只有一张图片，建议使用UIButtonTypeRoundedRect。按钮高度自定义，建议使用UIButtonTypeCustom。
+
+
+调整Button内部内容的边距(Padding)
+
+[self.userNameButton setContentEdgeInsets:UIEdgeInsetsMake(0, 3, 0, 0)]; 
+titleEdgeInsets  imageEdgeInsets 的使用
+[myButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; 4个参数是上边界，左边界，下边界，右边界。
+

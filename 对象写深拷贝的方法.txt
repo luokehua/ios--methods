@@ -1,0 +1,20 @@
+
+
+// 对象写深、浅拷贝的方法
+//浅拷贝
+ -(id)copyWithZone:(NSZone *)zone
+{
+
+    Date *date = [[[self class] allocWithZone:zone] init];
+    date.data = _data;／／属性不能拷贝
+    return date;
+}
+
+／／深拷贝
+ -(id)copyWithZone:(NSZone *)zone
+{
+
+    Date *date = [[[self class] allocWithZone:zone] init];
+    date.data = [_data copy];／／属性拷贝
+    return date;
+}

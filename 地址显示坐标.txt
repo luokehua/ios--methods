@@ -1,0 +1,4 @@
+
+// 查询坐标接口
+
+http://api.map.baidu.com/geocoder/v2/?address=江宁路631号&city=上海市&output=json&ak=ipSOE8Ihrozju0zGMaostjPh

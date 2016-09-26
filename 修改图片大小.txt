@@ -1,0 +1,12 @@
+
+
+
++ (UIImage *) imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize) newSize{
+    newSize.height=image.size.height*(newSize.width/image.size.width);
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage=UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return  newImage;
+
+}

@@ -1,0 +1,40 @@
+
+        NSString *homePath = NSOpenStepRootDirectory();
+        NSString *filePath = [homePath stringByAppendingPathComponent:@"app/license.txt"];
+        NSFileHandle *fileHaddle = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
+
+        
+       //1.追加数据
+        [fileHaddle seekToEndOfFile];
+        NSString *str = @"我爱你，老婆！";
+        NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+        [fileHaddle writeData:data];        
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",str);
+
+
+        //2.定点读取数据
+        NSInteger length = [[fileHaddle availableData] length];
+        [fileHaddle seekToFileOffset:length/2];
+        NSData *data = [fileHaddle readDataToEndOfFile];   
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",str);
+     
+        
+        //3.复制文件
+        NSString *tagePath = [homePath stringByAppendingString:@"app/license_bak.txt"];
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        BOOL success = [fileManager createFileAtPath:tagePath contents:nil attributes:nil];
+        if (success) {
+            NSLog(@"create succeess!");
+        }
+        NSFileHandle *outfileHanddle = [NSFileHandle fileHandleForWritingAtPath:tagePath];
+        NSFileHandle *inFileHanddle = [NSFileHandle fileHandleForReadingAtPath:filePath];
+        
+        NSData *data = [inFileHanddle readDataToEndOfFile];
+        [outfileHanddle writeData:data];
+        
+
+        [fileHaddle closeFile];
+        [outfileHanddle closeFile];／／关闭文件

@@ -1,0 +1,59 @@
+
+1.本地化应用程序名称
+
+（1）点击“new file”然后在弹出窗口左侧选择IOS的resource项，在右侧就可以看到“String File”的图标。创建这个文件，命名为“InfoPlist”（一定是这个文件名） 就生成一个InfoPlist.strings文件；
+
+（2）选中InfoPlist.strings 点击 XCode-> View-> Utilities -> File Inspector,在Localization中点“+”，添加chinese （zh－Hans）类型的为简体中文，english 应该会自动添加上。然后在InfoPlish.strings 左边会多出一个三角形，点击展开后可以看到InfoPlish.strings(english)和InfoPlish.strings(chinese)两个版本的文件；
+
+IOS应用程序多语言本地化解决方案（转） - ♂苹果 - 眼睛想旅行
+ 
+
+（3）在InfoPlish.strings(english)文件中加入：
+
+CFBundleDisplayName ="Program";   
+其中“Program”为英文应用程序名称，同理在InfoPlish.strings(chinese)文件中加入：
+
+CFBundleDisplayName ="应用程序";  
+ 其中“应用程序”为中文名称，注意：CFBundleDisplayName加不加双引号都行
+
+（4）编辑Info.plist，添加一个新的属性Application has localized display name, 设置其类型为boolean，并将其value设置为YES即可
+
+ 2.本地化字符串
+
+（1）类似“本地化应用程序名称”第一步，点击“new file”然后在弹出窗口左侧选择IOS的resource项，在右侧就可以看到“String File”的图标。创建这个文件，命名为“Localizable”（一定是这个文件名否则后面调用会有一些区别）就生成一个Localizable.strings文件；
+
+（2）类似“本地化应用程序名称”第二第三步，在Localizable.strings(english)文件中加入：
+
+"welcome"="Click on the screen to continue...";  
+ 同理在Localizable.strings(chinese)文件中加入：
+
+"welcome"="点击屏幕继续...";  
+（3）在代码中使用NSLocalizedString(<#key#>, <#comment#>)来读取本地化字符串，代码如下：
+
+CCLabelTTF *label = [CCLabelTTF labelWithString:NSLocalizedString(@"welcome", nil) fontName:@"Marker Felt" fontSize:18];  
+CGSize size = [[CCDirector sharedDirector] winSize];  
+label.position =  ccp( size.width /2 , size.height/2+30 );  
+[self addChild: label];  
+注意：如果你的strings文件名字不是Localizable而是自定义的话，如wang.strings，那么你就得使用NSLocalizedStringFromTable()来读取本地化字符串：
+
+NSLocalizedStringFromTable(@"welcome",@"wang", nil)  
+ 3.本地化图片
+
+这里又分两种方法，第一种和本地化字符串方法类似，把中英文图片的名字分别存到中英文对应的strings文件，然后通过NSLocalizedString)来获取图片名称，如：
+
+Localizable.strings(english)文件中加入：
+
+"BtnCancel"="BtnCancelEn.png";  
+Localizable.strings(chinese)文件中加入：
+
+"BtnCancel"="BtnCancelCn.png";  
+然后在代码中使用NSLocalizedString)来获取图片名称：
+
+CCSprite *btnCancel = [CCSprite spriteWithSpriteFrameName:NSLocalizedString(@"BtnCancel", nil)];  
+btnCancel.position=ccp(s.width/2,s.height/2-40);  
+[self addChild:btnCancel z:2 tag:104];  
+第二种就比较正规化了：点中你要本地化的图片，如“icon.png”，然后XCode-> View-> Utilities -> File Inspector，在Localization中点“+”添加chinese （zh－Hans）；在图片左边就会出现一个倒三角，点开就会出现（english）和（chinese）的2张图，并且在项目文件夹中会出现en.lproj文件和zh-Hans.lproj文件；en.lproj文件存放的是英文版图片，zh-Hans.lproj存放的是中文版图片，中英文图片名字一样，我们在文件夹中直接替换图片就可以了，最后使用时直接使用正常名字就行了，如：“icon.png”。
+
+4.本地化其他文件
+
+本地化其他文件和本地化图片第二种方法类似，先在Localization中添加语言，然后把对应版本拷贝到en.lproj和zh-Hans.lproj文件夹中，最后引用就行了。

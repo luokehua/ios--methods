@@ -1,0 +1,11 @@
+    self.tabBar.selectionIndicatorImage = [UIImage imageNamed:@"nav_bg"];
+    self.tabBar.tintColor = [UIColor whiteColor];
+    self.tabBar.barTintColor = [UIColor whiteColor];
+    
+    /**
+     *  修正tabbar白条
+     */
+    CGRect frame = self.tabBar.frame;
+    frame.origin.x = -6;
+    frame.size.width +=12;
+    self.tabBar.frame = frame;

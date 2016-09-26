@@ -1,0 +1,33 @@
+
+// 查询筛选对象属性
+
+
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i<10; i++) {
+            
+            Person *person = [[Person alloc] init];
+            person.name = [NSString stringWithFormat:@"jack-%d",i];
+             person.age = @(20+i);
+            [array addObject:person];
+            [person release];
+        }
+//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"age<25"];
+//         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name in {'jack-2','jack-3'}"];
+//         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"age<%d",25];
+//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name BEGINSWITH 'j'",25];
+//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name ENDSWITH '5'",25];
+        NSString *s = [NSString stringWithFormat:@"name like ‘*%@*’”,@“a”];//‘*’任意的
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:s];
+        
+
+        
+        for (Person *p in array) {
+            BOOL reet = [predicate evaluateWithObject:p];
+            if (reet) {
+                NSLog(@"%@",p);
+                
+            }
+        }
+        NSArray *newarray = [array filteredArrayUsingPredicate:predicate];
+        NSLog(@"%@",newarray);

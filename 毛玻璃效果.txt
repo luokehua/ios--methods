@@ -1,0 +1,12 @@
+- (UIImage *)blurryImage:(UIImage *)image
+           withBlurLevel:(CGFloat)blur {
+    CIImage *inputImage = [CIImage imageWithCGImage:image.CGImage];
+    CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"
+                                  keysAndValues:kCIInputImageKey, inputImage,
+                        @"inputRadius", @(blur),
+                        nil];
+    
+    CIImage *outputImage = filter.outputImage;
+    
+    return [UIImage imageWithCIImage:outputImage];
+}

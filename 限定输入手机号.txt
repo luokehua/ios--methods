@@ -1,0 +1,31 @@
+
+-(BOOL)validateMobile:(NSString* )mobileNumber
+{
+    NSString *mobileStr = @"^((145|147)|(15[^4])|(17[6-8])|((13|18)[0-9]))\\d{8}$";
+    NSPredicate *cateMobileStr = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",mobileStr];
+    
+    if ([cateMobileStr evaluateWithObject:mobileNumber]==YES)
+    {
+        return YES;
+    }
+    return NO;
+}
+
+//6位数字
++(BOOL)isNumer6:(NSString *) strNum{
+    return [strNum isMatchedByRegex:@"^\\d{6}$"];
+}
+//手机号码
++(BOOL)isMobile:(NSString *)mobile{
+	return [mobile isMatchedByRegex:@"\\b^((13[0-9])|(14[0-9])|(15[0-9])|(18[0-9]))\\d{8}$"];
+}
+//邮箱号码
+
++(BOOL)isEmail:(NSString *)email{
+	return [email isMatchedByRegex:@"\\b([a-zA-Z0-9%_.+\\-]+)@([a-zA-Z0-9.\\-]+?\\.[a-zA-Z]{2,6})\\b"];
+}
+//网址
+
++(BOOL)isUrl:(NSString *)url{
+	return [url isMatchedByRegex:@"\\bhttp?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?"];
+}

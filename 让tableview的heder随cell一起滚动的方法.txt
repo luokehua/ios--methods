@@ -1,0 +1,4 @@
+
+
+把table的type设置成plain改成grouped
+

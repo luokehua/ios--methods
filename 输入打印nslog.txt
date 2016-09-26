@@ -1,0 +1,8 @@
+
+
+    #ifndef __OPTIMIZE__
+#define NSLog(fmt,...) NSLog((@"<%s:%d>" fmt), strrchr(__FILE__,'/'), __LINE__, ##__VA_ARGS__);
+#else
+#define NSLog(...) {}
+#endif
+

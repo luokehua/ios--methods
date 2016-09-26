@@ -1,0 +1,8 @@
+ //IOS6.0以后支持   
+
+       NSString *htmlString =@"<font size =5>买自行车送帅<font color=\"#ff0000\" >哥,买</font>自行车送</font>";
+            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+            purchaseOldName.attributedText = attributedString ;
+            purchaseOldName.numberOfLines =0;
+            [purchaseOldName sizeToFit];
+            [purchaseName setHidden:YES];

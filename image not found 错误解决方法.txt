@@ -1,0 +1,4 @@
+dyld: Library not loaded: /System/Library/Frameworks/Social.framework/Social
+  Referenced from: /var/mobile/Applications/00D3E0A7-4FF6-451E-B11C-87D7A189F425/sample.app/sample
+  Reason: image not found
+把Build Phases 里Social.framework后边的选项修改成为Optional就可以了

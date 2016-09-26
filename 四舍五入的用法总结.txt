@@ -1,0 +1,9 @@
+Math.round：如果参数是小数，则求本身的四舍五入。
+Math.ceil：如果参数是小数，则求最小的整数但不小于本身.
+Math.floor：如果参数是小数，则求最大的整数但不大于本身.  
+
+同时注意他们的返回类型:
+long round(double a)  
+int round(float a) 
+double ceil(double a)  
+double floor(double a) 

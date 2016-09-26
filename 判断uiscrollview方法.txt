@@ -1,0 +1,45 @@
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [inputText resignFirstResponder];
+
+    [self.tableView tableViewDidScroll:scrollView];
+    
+//    static float newY = 0;
+//    newY = scrollView.contentOffset.y;
+//    if (newY != _oldY) {
+//        if (newY > _oldY && (newY - _oldY) > 50) {
+//            NSLog(@"Down");
+//            _oldY = newY;
+//            isfrombottom = YES;
+//        } else if (newY < _oldY && (_oldY - newY) > 50) {
+//            NSLog(@"Up");
+//            _oldY = newY;
+//            isfrombottom =NO;
+//        }
+//    }
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    [self.tableView tableViewDidEndDragging:scrollView];
+    if (lastContentOffset < scrollView.contentOffset.y) {
+        NSLog(@"向上滚动");
+    }else{
+        NSLog(@"向下滚动");
+    }
+
+}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    lastContentOffset = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    if (lastContentOffset < scrollView.contentOffset.y) {
+        NSLog(@"向上滚动");
+    }else{
+        NSLog(@"向下滚动");
+    }
+}
+
+

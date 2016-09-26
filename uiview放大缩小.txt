@@ -1,0 +1,57 @@
+
+//创建缩小了的视图
+myWeiBoImageVC = [[UIViewController alloc] init];
+myWeiBoImageVC.view.clipsToBounds = YES;
+myWeiBoImageVC.view.alpha = 0.0;
+myWeiBoImageVC.view.frame = CGRectMake(64, 0, 1024-64, 768-20);
+[self.view addSubview:myWeiBoImageVC.view];
+    
+CGAffineTransform newTransform = 
+CGAffineTransformScale(myWeiBoImageVC.view.transform, 0.1, 0.1);
+[myWeiBoImageVC.view setTransform:newTransform];
+myWeiBoImageVC.view.center = CGPointMake(670, 100);
+ 
+[self performSelector:@selector(imageViewControllerBigAnimation)];
+
+//放大刚刚创建缩小后的视图
+- (void)imageViewControllerBigAnimation{
+   
+    [UIView beginAnimations:@"imageViewBig" context:nil];
+    [UIView setAnimationDuration:0.5];   
+    CGAffineTransform newTransform =            CGAffineTransformConcat(myWeiBoImageVC.view.transform,  CGAffineTransformInvert(myWeiBoImageVC.view.transform));
+    [myWeiBoImageVC.view setTransform:newTransform];
+    myWeiBoImageVC.view.alpha = 1.0;
+    myWeiBoImageVC.view.center = CGPointMake(416, 510)；
+    [UIView commitAnimations];
+   
+}
+
+//缩小视图 隐藏
+
+- (void)imageViewControllerSmallAnimation{
+
+    [UIView beginAnimations:@"imageViewSmall" context:nil];
+    [UIView setAnimationDuration:0.5];
+    CGAffineTransform newTransform =  CGAffineTransformScale(myWeiBoImageVC.view.transform, 0.1, 0.1);
+    [myWeiBoImageVC.view setTransform:newTransform];
+    myWeiBoImageVC.view.center = CGPointMake(670, 100);
+    [UIView commitAnimations];
+   
+}
+
+
+UIButtonTypeCustom 和  UIButtonTypeRoundedRect  的区别
+
+ UIButtonTypeCustom ：是一个背景透明的按钮。  如果想做按钮中图片切换（不同状态），必须使用两张图片进行设置。
+
+UIButtonTypeRoundedRect ：是一个圆角矩形按钮。方便之处：系统会自动为这种按钮设置高亮状态（半透明状态）。即，通过一张图片，就可以做出按钮交互的效果。 不方便的地方：如果你想自定义不同状态下，按钮显示的背景，这种类型的按钮就支持的不好。
+
+建议：快速开发，每个按钮只有一张图片，建议使用UIButtonTypeRoundedRect。按钮高度自定义，建议使用UIButtonTypeCustom。
+
+
+调整Button内部内容的边距(Padding)
+
+[self.userNameButton setContentEdgeInsets:UIEdgeInsetsMake(0, 3, 0, 0)]; 
+titleEdgeInsets  imageEdgeInsets 的使用
+[myButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; 4个参数是上边界，左边界，下边界，右边界。
+

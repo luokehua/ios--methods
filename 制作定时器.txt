@@ -1,0 +1,20 @@
+
+// 定时器写法
+
+[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startToFindAhouse:／／调用函数) userInfo:nil repeats:YES];
+
+[[NSRunLoop currentRunLoop] run];／／让定时器不断循环
+
+
+//        BOOL istrue = YES;
+//        while (istrue) {
+//            NSDate *date = [NSDate date];
+//          [[NSRunLoop currentRunLoop ] runUntilDate:[date dateByAddingTimeInterval:12]];
+//            istrue = NO;
+//            NSLog(@"程序退出了！");
+//        }／／给定时器设置循环时间
+
+
+***定时 多少时间后执行***
+
+dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{}）

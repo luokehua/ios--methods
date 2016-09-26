@@ -1,0 +1,8 @@
+        CAKeyframeAnimation * animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
+        CGFloat currentTx = moveView.transform.ty;
+        animation.delegate = self;
+        animation.duration = 1;
+        animation.values = @[ @(currentTx), @(currentTx + 30),  @(currentTx - 30), @(currentTx) ];
+        animation.keyTimes = @[ @(0), @(0.25), @(0.75), @(1) ];
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        [moveView.layer addAnimation:animation forKey:@"kAFViewShakerAnimationKey"];

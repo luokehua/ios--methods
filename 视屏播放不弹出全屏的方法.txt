@@ -1,0 +1,7 @@
+简介：
+webview中用html5的video方式播放视频时，在ipad上是默认原来大小的，而在iphone上是默认全屏播放的。
+论坛中搜索，都没给出答案，google－》stackoverflow，找到最终解决方法：
+HTML里video必须加上webkit-playsinline属性
+<video id="player" width="480" height="320" webkit-playsinline>
+Obj-C里，webview设置allowsInlineMediaPlayback属性为YES
+webview.allowsInlineMediaPlayback = YES;

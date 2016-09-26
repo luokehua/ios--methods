@@ -1,0 +1,36 @@
+
+//segment
+
+typeControl = [[UISegmentedControl alloc] initWithItems:@[@"系统通知", @"商家通知"]];
+    [typeControl setFrame:CGRectMake(0, 0, 180, 35)];
+//    [typeControl setTintColor:[UIColor redColor]];
+    typeControl.selectedSegmentIndex = 0;
+    
+    UIImage *segmentSelected = [UIImage imageNamed:@"red_bg_default.png"];
+    UIImage *segmentUnSelected = [UIImage imageNamed:@"red_selected.png"];
+    UIImage *segmentSelectedUnselected = [UIImage imageNamed:@"red_line2.png"];
+    
+    [typeControl setBackgroundImage:segmentSelected
+                           forState:UIControlStateSelected
+                         barMetrics:UIBarMetricsDefault];
+    [typeControl setBackgroundImage:segmentSelected
+                           forState:UIControlStateHighlighted
+                         barMetrics:UIBarMetricsDefault];
+    [typeControl setBackgroundImage:segmentUnSelected
+                           forState:UIControlStateNormal
+                         barMetrics:UIBarMetricsDefault];
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], UITextAttributeTextColor,[UIFont systemFontOfSize:17.f], UITextAttributeFont, nil];
+    [typeControl setTitleTextAttributes:dic forState:UIControlStateSelected];
+    
+    NSDictionary *dic1 = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], UITextAttributeTextColor,[UIFont systemFontOfSize:17.f], UITextAttributeFont, nil];
+    [typeControl setTitleTextAttributes:dic1 forState:UIControlStateNormal];
+    
+    [typeControl setDividerImage:segmentSelectedUnselected
+             forLeftSegmentState:UIControlStateNormal
+               rightSegmentState:UIControlStateNormal
+                      barMetrics:UIBarMetricsDefault];
+    [typeControl addTarget:self action:@selector(typeChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    
+    [self.navigationItem setTitleView:typeControl];

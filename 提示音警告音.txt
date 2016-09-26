@@ -1,0 +1,38 @@
+30秒的声音文件,他支持的格式有CAF,AIF,WAV.
+首先导入框架:AudioToolbox ,在文件中导入该框架的借口文件:#import<AudioToolbox/AudioToolbox.h>
+声音:立刻播放一个简单的声音文件,如果手机为静音,用户什么什么都听不到.
+
+提醒:播放声音文件,如果手机设置为静音或震动,将通过震动提醒用户
+
+震动:震动手机,不考虑其他设置
+在xib文件中添加三个按钮,分别实现以上三个功能.放入一个WAV格式的声音文件
+
+//声音
+- (IBAction)buttonClick:(UIButton *)sender {
+    //警告音一般较短
+    //声明变量soundid,用来引入音乐文件
+    SystemSoundID soundid;
+    //得到声音文件路径
+    NSString *soundfile=[[NSBundle mainBundle]pathForResource:@"soundeffect" ofType:@"wav"];
+    //1.指向文件位置的CFURLRef. 2.指针
+    //__bridge.将C语言结构转化为OC语言对象
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:soundfile], &soundid);
+    //播放警告音
+    AudioServicesPlaySystemSound(soundid);
+}
+//提醒
+- (IBAction)alertButtonClick:(UIButton *)sender {
+    SystemSoundID soundid;
+    NSString *soundfile=[[NSBundle mainBundle]pathForResource:@"soundeffect" ofType:@"wav"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:soundfile], &soundid);
+    //警告音,当用户调整为静音时震动
+    AudioServicesPlayAlertSound(soundid);
+}
+
+//震动
+
+- (IBAction)shakeButtonClick:(UIButton *)sender {
+    SystemSoundID soundid;
+    //不论手机状态,只有震动
+    AudioServicesPlaySystemSound(soundid);
+}

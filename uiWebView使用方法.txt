@@ -1,0 +1,129 @@
+1、、UIWebView和JS交互
+
+     1》在Objective-C代码中调用JS
+ 
+     使用stringByEvaluatingJavaScriptFromString方法，需要等到UIWebView中的页面加载完成之后去调用。
+
+     -(void) webViewDidFinishLoad:(UIWebView *)webView{
+
+         [self.activityViewstopAnimating];
+
+ 
+
+         [myWebView stringByEvaluatingJavaScriptFromString:@"function test(){ alert(123123123)}"];
+
+         [myWebView stringByEvaluatingJavaScriptFromString:@"test();"];//调用
+
+     }
+     2》在JS中调用Objective-C代码
+ 
+JS代码：
+function sendCommand(cmd,param){  
+    var url="testapp:"+cmd+":"+param;  
+    document.location = url;  
+}  
+function clickLink(){  
+    sendCommand("alert","你好吗？");  
+}  
+ 
+Objective-C代码：
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {  
+      
+    NSString *requestString = [[request URL] absoluteString];  
+    NSArray *components = [requestString componentsSeparatedByString:@":"];  
+    if ([components count] > 1 && [(NSString *)[components objectAtIndex:0] isEqualToString:@"testapp"]) {  
+        if([(NSString *)[components objectAtIndex:1] isEqualToString:@"alert"])   
+        {  
+            UIAlertView *alert = [[UIAlertView alloc]   
+                                  initWithTitle:@"Alert from Cocoa Touch" message:[components objectAtIndex:2]  
+                                  delegate:self cancelButtonTitle:nil  
+                                  otherButtonTitles:@"OK", nil];  
+            [alert show];  
+        }  
+        return NO;  
+    }  
+    return YES;  
+}  
+
+2、、js调用oc的方法
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType  
+{  
+    BOOL result = YES;  
+    NSURL *requestURL =[[request URL] retain];  
+    NSString *requestString = [[request URL] absoluteString];  
+    static BOOL bstart = NO;  
+    static BOOL bmove = NO;  
+    static double lasttime = 0;  
+      
+    NSString *str = [requestURL scheme];  
+    if ( ([str isEqualToString:@"http"] || [str isEqualToString:@"https"] || [str isEqualToString:@"mailto"] || [str isEqualToString:@"tel"])  
+        && (navigationType == UIWebViewNavigationTypeLinkClicked) )  
+    {  
+        result = ![[UIApplication sharedApplication] openURL:[requestURL autorelease]];  
+    }  
+    else  
+    {  
+        [requestURL release];  
+        NSArray *components = [requestString componentsSeparatedByString:@":"];  
+        if ([components count] > 2   
+            && [(NSString *)[components objectAtIndex:0] isEqualToString:@"wiweb"]  
+            && [(NSString *)[components objectAtIndex:1] isEqualToString:@"touch"])  
+        {  
+            NSString *eventString=[components objectAtIndex:2];  
+            if ([eventString isEqualToString:@"start"])  
+            {  
+                float pointX=[[components objectAtIndex:3] floatValue];  
+                float pointY=[[components objectAtIndex:4] floatValue];  
+                double time=[[components objectAtIndex:5] doubleValue];  
+                CGPoint aPoint = CGPointMake(pointX, pointY);  
+                NSLog(@"start: %@", NSStringFromCGPoint(aPoint));  
+                NSLog(@"start time: %0f   interval: %0f", time/1000, (time - lasttime)/1000);  
+                lasttime = time;  
+                bstart = YES;  
+                bmove = NO;  
+                NSLog(@"bstart: %d -- bmove: %d", bstart, bmove);  
+            }  
+            else if ([eventString isEqualToString:@"move"])  
+            {  
+                float pointX=[[components objectAtIndex:3] floatValue];  
+                float pointY=[[components objectAtIndex:4] floatValue];  
+                CGPoint aPoint=CGPointMake(pointX, pointY);  
+                NSLog(@"move: %@", NSStringFromCGPoint(aPoint));  
+                bmove = YES;  
+                NSLog(@"bstart: %d -- bmove: %d", bstart, bmove);  
+            }  
+            else if ([eventString isEqualToString:@"cancel"])  
+            {  
+                NSLog(@"cancel");  
+                bstart = NO;  
+                bmove = NO;  
+                NSLog(@"bstart: %d -- bmove: %d", bstart, bmove);  
+            }  
+            else if ([eventString isEqualToString:@"end"])  
+            {  
+                double time=[[components objectAtIndex:3] doubleValue];  
+                NSLog(@"end");  
+                NSLog(@"bstart: %d -- bmove: %d", bstart, bmove);  
+                NSLog(@"end time: %0f   interval: %0f", time/1000, (time - lasttime)/1000);  
+                if (bstart && !bmove)  
+                {  
+                    if (time - lasttime > 400)  
+                    {  
+                        NSLog(@"LongPress!!!!!!");  
+                    }  
+                    else  
+                    {  
+                        NSLog(@"Click!!!!!!");  
+                    }  
+                }  
+                bstart = NO;  
+                bmove = NO;  
+            }  
+              
+            return NO;  
+        }  
+    }  
+      
+    NSURL *url = [request URL];  
+    NSString *curUrl= [url absoluteString];  
+    NSLog(@"cururl: %@", curUrl);  

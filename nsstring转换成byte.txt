@@ -1,0 +1,5 @@
+、、
+                NSString * salt = json[@"data"][@"salt"];
+                NSString * code = json[@"data"][@"code"];
+NSData * saltData = [salt dataUsingEncoding:NSUTF8StringEncoding];
+          Byte saltByte = (Byte *)[saltData bytes];

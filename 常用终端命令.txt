@@ -1,0 +1,16 @@
+
+安装Xcode插件方法：
+安装Alcatraz:curl -fsSL https://raw.github.com/supermarin/Alcatraz/master/Scripts/install.sh | sh
+
+删除:rm -rf ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/Alcatraz.xcplugin
+
+删除所有通过Alcatraz安装的安装包：rm -rf ~/Library/Application\ Support/Alcatraz/
+
+
+
+
+处理冲突
+1、git fetch origin
+2、git checkout 2.1.2
+3、git merge --no-ff yuanfuyun_luokehua
+4、git push origin 2.1.2

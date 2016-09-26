@@ -1,0 +1,37 @@
+
+// 键值对的创建与调用
+
+
+        Person *person = [[Person alloc] init];
+        [person setValue:@"qiao bu si" forKey:@"name"];
+        
+        apples *macbook = [[apples alloc] init];
+        [macbook setValue:@"macbook" forKey:@"_name"];
+        [macbook setValue:@5000 forKey:@"_privice"];
+        
+        apples *iphone = [[apples alloc] init];
+        [iphone setValue:@"iphone" forKey:@"_name"];
+        [iphone setValue:@800 forKey:@"_privice"];
+        
+        apples *ipad = [[apples alloc] init];
+        [ipad setValue:@"ipad" forKey:@"_name"];
+        [ipad setValue:@1300 forKey:@"_privice"];
+        
+        NSArray *apples = @[macbook,ipad,iphone];
+        [macbook release];
+        [iphone release];
+        [ipad release];
+        
+   ／／ 几个运算方法   
+        [person setValue:apples forKey:@"apples"];
+        NSNumber *sum = [person valueForKeyPath:@"apples.@sum._privice"];
+        NSLog(@"%@",sum);
+        NSNumber *min = [person valueForKeyPath:@"apples.@min._privice"];
+        NSLog(@"%@",min);
+        NSNumber *max = [person valueForKeyPath:@"apples.@max._privice"];
+        NSLog(@"%@",max);
+        NSNumber *count = [person valueForKeyPath:@"apples.@count"];
+        NSLog(@"%@",count);
+        
+        
+        [person release];

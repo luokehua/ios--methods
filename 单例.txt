@@ -1,0 +1,59 @@
+
+// 单例
+
+static UserContext *segonInstance = nil;
+
+@implementation UserContext
++(id)shareUserContext
+{
+
+
+    @synchronized (self){
+        
+    if(segonInstance == nil){
+    
+        segonInstance = [[self class] init];
+    }
+    return segonInstance;
+    }
+}
+
+
+//#prama mark -下面的方法为了确保只有一个实例对象
+
++(id)allocWithZone:(NSZone *)zone
+{
+
+    if (segonInstance == nil) {
+        segonInstance = [super allocWithZone:zone];
+    }
+    return segonInstance;
+}
+
+-(id)copyWithZone:(NSZone *)zone
+
+{
+
+    return segonInstance;
+}
+-(NSUInteger)retainCount{
+
+
+    return UINT_MAX;
+}
+
+-(id)retain
+{
+
+    return segonInstance;
+}
+-(oneway void)release
+{
+
+}
+
+-(id)autorelease
+{
+      return segonInstance;
+}
+@end

@@ -1,0 +1,10 @@
+
+// 将小量的常用数据储存在内存中调用
+
+
+-(NSString *)description
+{
+
+    NSString *s = [NSString stringWithFormat:@"name =%@,age =%@",_name,_age];
+    return s;
+}

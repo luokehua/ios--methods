@@ -1,0 +1,53 @@
+
+// 通知
+
+
+-(id)init
+{
+
+    self =[super init ];
+    if (self != nil) {
+        _wake = 100;
+        
+        
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeIntervalSinceNow:) userInfo:nil repeats:YES];／／计时器调用
+        
+    }
+    return self;
+}
+
+
+-(void)timeIntervalSinceNow:(NSTimer *)timer
+
+{
+
+    _wake -=2;
+    NSLog( @"%d",_wake);
+    if (_wake <90) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"childWake" object:[NSNumber numberWithInt:_wake]];
+        [timer invalidate];       
+／／@"childWake”在另一个接收者查找 
+    }
+}
+
+／／观察通知，并做出响应
+
+-(id)init
+{
+    
+    self =[super init ];
+    if (self != nil) {
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wake:) name:@"childWake" object:nil];
+    }
+    return self;
+}
+
+
+-(void)wake:(NSNotification *)notification
+{
+
+    NSNumber *num = notification.object;
+    NSLog(@"dsfsfsf %@",num);
+}

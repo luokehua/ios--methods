@@ -1,0 +1,63 @@
+#import <UIKit/UIKit.h>
+
+@interface TestGestureRecognizerViewController : UIViewController {
+    UIView *aView;
+}
+@property(nonatomic,retain)IBOutlet UIView *aView;
+@end
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#import "TestGestureRecognizerViewController.h"
+#import <QuartzCore/QuartzCore.h>//导入框架
+
+@implementation TestGestureRecognizerViewController
+@synthesize aView;
+
+-(void)handelPan:(UIPanGestureRecognizer*)gestureRecognizer{
+    //获取平移手势对象在self.view的位置点，并将这个点作为self.aView的center,这样就实现了拖动的效果
+    CGPoint curPoint = [gestureRecognizer locationInView:self.view];
+    [self.aView setCenter:curPoint];
+}
+-(void)handelTap:(UITapGestureRecognizer *)gestureRecognizer{
+    NSLog(@"%s",__FUNCTION__);
+    [NSRunLoop cancelPreviousPerformRequestsWithTarget:self];//双击事件取消延时
+}
+//单击方法
+-(void)handelSingleTap:(UITapGestureRecognizer*)gestureRecognizer{
+    NSLog(@"%s",__FUNCTION__);
+    [self performSelector:@selector(singleTap:) withObject:nil afterDelay:0.2];
+}
+-(void)singleTap:(id)sender{
+    NSLog(@"%s",__FUNCTION__);
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    //创建一个平移手势对象，该对象可以调用handelPan：方法
+    UIPanGestureRecognizer *panGes = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handelPan:)];
+    [self.aView addGestureRecognizer:panGes];
+    [panGes release];
+
+    //创建一个点击手势对象，该对象可以调用handelTap：方法
+    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handelTap:)];
+    [self.view addGestureRecognizer:tapGes];
+    [tapGes release];
+    [tapGes setNumberOfTouchesRequired:1];//触摸点个数
+    [tapGes setNumberOfTapsRequired:2];//点击次数
+
+    //创建一个点击手势对象，该对象可以调用handelSingleTap：方法
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handelSingleTap:)];
+    [self.view addGestureRecognizer:singleTap];
+    [singleTap release];
+    [singleTap setNumberOfTouchesRequired:1];//触摸点个数
+    [singleTap setNumberOfTapsRequired:1];//点击次数
+}
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+@end

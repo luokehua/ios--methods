@@ -1,0 +1,9 @@
+//我的淘点（）括号里面的颜色为红色。
+
+NSString *text = [NSString stringWithFormat:@"我的淘点(%@)", [responseObject valueForKey:@"credit"]];
+        
+        NSMutableAttributedString *str = [[[NSMutableAttributedString alloc] initWithString:text] autorelease];
+        int a = [[str string] rangeOfString:@"("].location;
+        int b = [[str string] rangeOfString:@")"].location;
+        [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(a + 1,b - a - 1)];
+        title.attributedText = str;

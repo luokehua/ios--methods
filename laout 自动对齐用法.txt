@@ -1,0 +1,61 @@
+
+// 自动对齐   http://www.cocoachina.com/bbs/read.php?tid=116558 //理解网址
+
+
+    UIView *aView = [[UIView alloc] init];
+    aView.backgroundColor = [UIColor redColor];
+    [aView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:aView];
+    
+    UIView *bView = [[UIView alloc] init];
+    bView.backgroundColor = [UIColor blueColor];
+    [bView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:bView];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(aView, bView);
+    
+    [self.view addConstraints:
+    [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=50)-[aView(100)]"
+                                             options:0
+                                             metrics:nil
+                                               views:views]];
+    
+    [self.view addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=50)-[aView(50)]"
+                                             options:0
+                                             metrics:nil
+                                               views:views]];
+   
+    [self.view addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"H:[bView(==aView)]"
+                                             options:0  
+                                             metrics:nil
+                                               views:views]];
+    [self.view addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"V:[bView(==aView)]"
+                                             options:0
+                                             metrics:nil
+                                               views:views]];
+    
+    [self.view addConstraint:
+     [NSLayoutConstraint constraintWithItem:bView
+                                  attribute:NSLayoutAttributeLeft
+                                  relatedBy:NSLayoutRelationEqual
+                                     toItem:aView
+                                  attribute:NSLayoutAttributeRight
+                                 multiplier:1
+                                   constant:10]];
+    
+    [self.view addConstraint:
+     [NSLayoutConstraint constraintWithItem:bView
+                                  attribute:NSLayoutAttributeTop
+                                  relatedBy:NSLayoutRelationEqual
+                                     toItem:aView
+                                  attribute:NSLayoutAttributeTop
+                                 multiplier:1
+                                   constant:0]];
+    
+    [aView release];
+    [bView release];
+
+http://www.cocoachina.com/bbs/attachment/thumb/Fid_6/6_122692_8bc3ac0749a69ef.png

@@ -1,0 +1,9 @@
+CGRect imageFrame= CGRectMake(0, 0, 80, 80);
+UIEdgeInsets imageInset = UIEdgeInsetsMake(0, 0, 30, 0);
+UIEdgeInsets titleInset = UIEdgeInsetsMake(80, 0, 0, 0);
+
+btnSideSettings = [UIButton buttonWithType:UIButtonTypeCustom];
+btnSideSettings.frame = settingsFrame;
+[btnSideSettings setImage:[UIImage imageNamed:@"btnSideSettings"] forState:UIControlStateNormal];
+btnSideSettings.imageView.frame = imageFrame;
+btnSideSettings.imageEdgeInsets = imageInset;

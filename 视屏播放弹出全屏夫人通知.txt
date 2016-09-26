@@ -1,0 +1,3 @@
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitedFullScreen:)
+         
+                                                     name:UIWindowDidBecomeHiddenNotification object:nil];

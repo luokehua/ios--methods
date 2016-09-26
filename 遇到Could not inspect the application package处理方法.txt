@@ -1,0 +1,6 @@
+
+
+1.工程名称不能为中文
+2，按住option，product clean ,清理
+3，把product的editor scheme 改成release；
+

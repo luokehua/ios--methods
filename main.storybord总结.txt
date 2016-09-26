@@ -1,0 +1,2 @@
+1、- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender 
+复写上面的方法可以

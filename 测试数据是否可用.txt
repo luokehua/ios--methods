@@ -1,0 +1,11 @@
+                @try {
+                    
+                    //测试数据
+                    
+                }
+                @catch (NSException *exception) {
+                    [TestinAgent reportCustomizedException:exception message:@"测试的错误"];
+                }
+                @finally {
+			//可用数据
+                }

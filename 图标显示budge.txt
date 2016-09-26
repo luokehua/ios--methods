@@ -1,0 +1,3 @@
+推送：服务端传递未读消息个数，图标上显示该数字，这个控制过程服务端完成；
+
+消息清零，客户端完成，[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0]，同时，将已读消息个数传个服务端，服务端减少未读个数。然后，推送：服务端传递未读消息个数，图标上显示该数字... ...
