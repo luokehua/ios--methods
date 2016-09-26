@@ -1,0 +1,12 @@
+
+// 获取version
+
+
+代码实现获得应用的Verison号：
+
+[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+或
+[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+
+获得build号：
+[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]

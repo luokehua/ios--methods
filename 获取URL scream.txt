@@ -1,0 +1,28 @@
+
+
+
+/*****获取当前网络******/
+
+
+
+类型问题貌似很多，拷贝整理一部分URL scheme
+
+QQ的url是 mqq:// 
+微信是weixin:// 
+淘宝taobao:// 
+点评dianping:// dianping://search 
+微博 sinaweibo:// 
+名片全能王camcard:// 
+weico微博weico:// 
+支付宝alipay:// 
+豆瓣fm：doubanradio:// 
+微盘 sinavdisk:// 
+网易公开课ntesopen://
+美团 imeituan:// 
+京冬openapp.jdmoble:// 
+人人renren:// 
+我查查 wcc:// 
+1号店wccbyihaodian:// 
+有道词典yddictproapp:// 
+知乎zhihu://
+优酷 youku://

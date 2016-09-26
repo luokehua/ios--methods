@@ -1,0 +1,6 @@
+
+
+获取地址
+//        NSString *mapUrl=[NSString stringWithFormat:@"http://api.map.baidu.com/staticimage?width=320&height=145&center=&markers=%@,%@&zoom=14&markerStyles=m,A,0xff0000",[location objectAtIndex:1],[location objectAtIndex:0]];
+//        [mapView sd_setImageWithURL:[NSURL URLWithString:mapUrl] placeholderImage:[UIImage imageNamed:@"map_default"]];
+

@@ -1,0 +1,14 @@
+-(void) screenShot
+{
+    UIGraphicsBeginImageContext(self.bounds.size);
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image= UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    NSLog(@"image:%@",image);
+    UIImageView *imaView = [[UIImageView alloc] initWithImage:image];
+    imaView.frame = CGRectMake(0, 700, 500, 500);
+    [self addSubview:imaView];
+    [imaView release];
+    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
+}

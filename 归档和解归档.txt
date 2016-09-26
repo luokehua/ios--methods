@@ -1,0 +1,91 @@
+
+//种类1。
+
+
+// ＊＊＊     归档   ＊＊＊
+        
+        NSString *homeDirectory = NSOpenStepRootDirectory();
+        NSArray *array =@[@123,@456,@"999",@"000"];
+       
+        
+        NSString *directory = [homeDirectory stringByAppendingPathComponent:@"APP/array.archive"];
+       
+        if ([NSKeyedArchiver archiveRootObject:array toFile:directory]) {
+            NSLog(@"archiver success !");
+        }
+        
+//＊＊＊＊解归档＊＊＊＊
+        NSArray *array1 = [NSKeyedUnarchiver unarchiveObjectWithFile:directory];
+        NSLog(@"new :%@",array1);
+
+
+//种类 2.
+        
+// ＊＊＊     归档   ＊＊＊
+        NSString *homeDirectory = NSOpenStepRootDirectory();
+        NSArray *array =@[@123,@456,@"999",@"000"];
+
+
+        NSString *directory = [homeDirectory stringByAppendingPathComponent:@"APP/data.archive"];
+        NSMutableData *data = [NSMutableData data];
+        NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+        [archiver encodeObject:@"jack" forKey:@"name"];
+        [archiver encodeObject:array forKey:@"array"];
+        [archiver encodeFloat:50 forKey:@"weight"];
+        [archiver encodeDataObject:data];
+        [archiver finishEncoding];
+        [data writeToFile:directory atomically:YES];
+
+
+
+//＊＊＊＊解归档＊＊＊＊
+
+        NSData *content = [NSData dataWithContentsOfFile:directory];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:content];
+        float weight = [unarchiver decodeFloatForKey:@"weight"];
+        NSString *name = [unarchiver decodeObjectForKey:@"name"];
+        NSLog(@"%@ %.2f",name,weight);
+
+
+//自定义归档
+
+
+-(void)encodeWithCoder:(NSCoder *)aCoder
+{
+
+    [aCoder encodeFloat:_age forKey:AGE];
+    [aCoder encodeObject:_name forKey:NAME];
+    [aCoder encodeObject:_password forKey:PASSWORD];
+
+
+    
+}
+-(id)initWithCoder:(NSCoder *)decoder
+{
+
+    
+    self = [super init ];
+    if (self!= nil) {
+        
+        self.password = [decoder decodeObjectForKey:PASSWORD];
+        self.name =  [decoder decodeObjectForKey:NAME];
+
+        _age = [decoder decodeFloatForKey:AGE];
+
+    }
+
+    return self;
+}
+／／输出
+-(NSString *)description
+{
+
+    NSString *str = [NSString stringWithFormat:@"age = %.2f,name = %@,password = %@",_age,_name,_password];
+    return str;
+    
+}
+
+
+
+
+

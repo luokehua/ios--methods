@@ -1,0 +1,8 @@
+
+// 计算uilable的长度
+
+                    CGSize size22 =[digouNumber22.text sizeWithFont:[UIFont systemFontOfSize:12] ];
+
+
+
+

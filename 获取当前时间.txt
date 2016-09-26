@@ -1,0 +1,7 @@
+
+// 获取当前系统时间的写法
+
+ NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+ [formatter setDateFormat:@"YYYY/MM/dd hh:mm:ss"];
+ NSString *locationState = [formatter stringFromDate:[NSDate date]];
+ NSLog(@"%@",locationState);

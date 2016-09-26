@@ -1,0 +1,99 @@
+获取设备信息
+
+
+[[UIDevice currentDevice] systemName]：系统名称，如iPhone OS
+
+[[UIDevice currentDevice] systemVersion]：系统版本，如4.2.1
+
+[[UIDevice currentDevice] model]：The model of the device，如iPhone或者iPod touch
+
+[[UIDevice currentDevice] uniqueIdentifier]：设备的惟一标识号，deviceID
+
+[[UIDevice currentDevice] name]：设备的名称，如 张三的iPhone
+
+[[UIDevice currentDevice] localizedModel]：The model of the device as a localized string，类似model
+
+
+但是以上的信息貌似无法得到设备的硬件信息，例如一个iphone3GS，系统升级到了iphone4。此时使用systemVersion得到的应该是4.x.x，那我们如何知道该设备为iphone3GS呢。网上流传一个方法，经测试应该是有用的。
+
+ 
+
+自定义一个类：
+
+#import <Foundation/Foundation.h>
+
+@interface UIDeviceHardware : NSObject {  
+
+}
+
+- (NSString *) platform;
+
+- (NSString *) platformString;
+
+@end
+
+ 
+
+ 
+
+#import "UIDeviceHardware.h"
+
+#include <sys/types.h>
+
+#include <sys/sysctl.h>
+
+@implementation UIDeviceHardware
+
+- (NSString *) platform{
+
+    size_t size;
+
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+
+    char *machine = malloc(size);
+
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+
+    NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
+
+    free(machine);
+
+    return platform;
+
+}
+
+ 
+
+- (NSString *) platformString{
+
+    NSString *platform = [self platform];
+
+    if ([platform isEqualToString:@"iPhone1,1"])    return @"iPhone 1G";
+
+    if ([platform isEqualToString:@"iPhone1,2"])    return @"iPhone 3G";
+
+    if ([platform isEqualToString:@"iPhone2,1"])    return @"iPhone 3GS";
+
+    if ([platform isEqualToString:@"iPhone3,1"])    return @"iPhone 4";
+
+    if ([platform isEqualToString:@"iPod1,1"])      return @"iPod Touch 1G";
+
+    if ([platform isEqualToString:@"iPod2,1"])      return @"iPod Touch 2G";
+
+    if ([platform isEqualToString:@"iPod3,1"])      return @"iPod Touch 3G";
+
+    if ([platform isEqualToString:@"iPod4,1"])      return @"iPod Touch 4G";
+
+    if ([platform isEqualToString:@"iPad1,1"])      return @"iPad";
+
+    if ([platform isEqualToString:@"i386"] || [platform isEqualToString:@"x86_64"])         return @"iPhone Simulator";
+
+    return platform;
+
+}
+
+@end
+
+ 
+
+使用[[[UIDeviceHardware alloc] init] platform]应该就可以得到设备的硬件版本

@@ -1,0 +1,29 @@
+
+// 关闭键盘
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{  
+    UITouch *touch = [touches anyObject];  
+    UIView *view = (UIView *)[touch view];  
+    if (view == self.view) {  
+        [weightTextField resignFirstResponder];  
+    }  
+}  
+、、
+// 触摸背景，关闭键盘
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    UIView *view = (UIView *)[touch view];
+    if (view == self.navigationController.view) {
+		[_tf_password resignFirstResponder];
+        [_tf_userName resignFirstResponder];
+    }
+}
+
+// 触摸背景，关闭键盘
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+        [_mobile resignFirstResponder];
+		[_passWord resignFirstResponder];
+		[_code resignFirstResponder];
+    
+}

@@ -1,0 +1,30 @@
+
+//截图
+-(void)snapshot
+{
+    _hiddenView.hidden = false;
+    [self.view bringSubviewToFront:_hiddenView];
+    //获得地图当前可视区域截图
+    _imgView.image = [_mapView takeSnapshot];
+    [_imgView sizeToFit];
+    if([self isIphone5])
+    {
+        _closeButton.frame=CGRectMake(115, 420, _closeButton.frame.size.width, _closeButton.frame.size.height);
+    }
+    else
+    {
+        _closeButton.frame=CGRectMake(115, 340, _closeButton.frame.size.width, _closeButton.frame.size.height);
+    }
+    [_hiddenView bringSubviewToFront:_closeButton];
+    self.navigationItem.rightBarButtonItem.enabled = false;
+    
+}
+//截图页面的关闭按钮
+- (IBAction)closeButtonClicked:(id)sender;
+{
+    _hiddenView.hidden = true;
+    [self.view sendSubviewToBack:_hiddenView];
+    _imgView.image = nil;
+    self.navigationItem.rightBarButtonItem.enabled = true;
+    
+}

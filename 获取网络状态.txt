@@ -1,0 +1,22 @@
+
+
+
+/*****获取当前网络******/
+
+
+
++(NSString*)getCurrntNet
+{
+    NSString* result = nil;
+    
+	
+	if([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWWAN){//gprs或者3g
+		result=@"3g";
+	}else if([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == kReachableViaWiFi){//wifi
+        result=@"wifi";
+	}else{
+		result=@"";
+	}
+	
+    return result;
+}
